@@ -2,3 +2,7 @@
 name = "project-euler-rust"
 version = "0.1.0"
 authors = ["Mark Wallace <lotabout@gmail.com>"]
+
+[[bin]]
+name = "p1"
+path = "src/p1.rs"
