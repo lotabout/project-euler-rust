@@ -6,8 +6,6 @@
 
 use std::cmp::Ordering;
 use std::collections::BinaryHeap;
-use std::iter::Cycle;
-use std::slice::Iter;
 
 // store the running state of generating prime
 #[derive(Copy, Clone, Eq, PartialEq, Debug)]
@@ -36,7 +34,7 @@ pub struct Prime {
 
 impl Prime {
     pub fn new() -> Self {
-        let mut ret = Prime {
+        let ret = Prime {
             running: BinaryHeap::new(),
             position: 1,
         };
