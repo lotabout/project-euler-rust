@@ -10,8 +10,8 @@ use std::collections::BinaryHeap;
 // store the running state of generating prime
 #[derive(Copy, Clone, Eq, PartialEq, Debug)]
 struct RunningState {
-    value: i32,
-    prime: i32,
+    value: u64,
+    prime: u64,
 }
 
 impl Ord for RunningState {
@@ -29,7 +29,7 @@ impl PartialOrd for RunningState{
 // The prime number generator
 pub struct Prime {
     running: BinaryHeap<RunningState>,
-    position: i32,
+    position: u64,
 }
 
 impl Prime {
@@ -44,7 +44,7 @@ impl Prime {
 }
 
 impl Iterator for Prime {
-    type Item = i32;
+    type Item = u64;
 
     fn next(&mut self) -> Option<Self::Item> {
         // try next position
@@ -89,6 +89,28 @@ impl Iterator for Prime {
     }
 }
 
+pub fn factors(orig: u64) -> Vec<u64> {
+    let mut primes = Prime::new();
+    let mut ret = Vec::new();
+
+    let mut running_val = orig;
+    while running_val > 1 {
+        let current_prime = primes.next().unwrap();
+        //println!("current_prime = {}", current_prime);
+
+        while running_val % current_prime == 0 {
+            ret.push(current_prime);
+
+            running_val /= current_prime;
+            //println!("inner: running_val = {}", running_val);
+        }
+    }
+
+    ret
+}
+
+#[allow(dead_code)]
+#[cfg(test)]
 mod test {
     use super::Prime;
 
@@ -106,5 +128,16 @@ mod test {
         assert_eq!(primes.next(), Some(19));
         assert_eq!(primes.next(), Some(23));
         assert_eq!(primes.next(), Some(29));
+    }
+
+    #[test]
+    fn test_factors() {
+        use super::factors;
+
+        assert_eq!(factors(1), vec![]);
+        assert_eq!(factors(13), vec![13]);
+        assert_eq!(factors(24), vec![2,2,2,3]);
+        assert_eq!(factors(25), vec![5,5]);
+        assert_eq!(factors(99), vec![3,3,11]);
     }
 }
