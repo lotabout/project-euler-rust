@@ -28,6 +28,8 @@ impl Iterator for Fibo {
 }
 
 mod test {
+    use super::Fibo;
+
     #[test]
     fn fibo() {
         let mut fibo_seq = Fibo::new();
