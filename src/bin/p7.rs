@@ -1,5 +1,5 @@
 // p3.rs
-mod prime;
+extern crate prime;
 use prime::Prime;
 
 pub fn main() {
