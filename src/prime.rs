@@ -1,14 +1,14 @@
 // library for dealing with prime numbers.
 
-// 1. currently, no wheel optimization had been added.
-// 2. I feel that the code is rather ugly.
-// TODO: write more clear code after getting more familiar with rust.
+// Check for the following documents for the details of the algorithm.
+// https://www.cs.hmc.edu/~oneill/papers/Sieve-JFP.pdf
 
 use std::cmp::Ordering;
 use std::collections::BinaryHeap;
 
-// Wheel will be an iterator, given small primes
-//
+// Wheel will generate an iterator that gives the next possible primes
+// it is later sieved.
+
 // # Example
 // let mut wheel = Wheel::new([2,3].to_vec());
 // println!('{}', wheel.next().wrap());
